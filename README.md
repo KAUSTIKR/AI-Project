@@ -194,7 +194,7 @@ For each untested song within a cluster, we:
 
 ---
 
-## 🎧 Spotify Premium Setup Instructions
+## Spotify Premium Setup Instructions
 
 Before running the real-time playlist recommender, you **must** have:
 
@@ -203,7 +203,7 @@ Before running the real-time playlist recommender, you **must** have:
 
 ---
 
-### 🔐 Step-by-Step: Get Spotify Client ID & Secret
+### Step-by-Step: Get Spotify Client ID & Secret
 
 1. Go to [Spotify Developer Console](https://developer.spotify.com/documentation/web-api)
 2. **Log in** with your **Spotify Premium** account.
@@ -223,7 +223,7 @@ Before running the real-time playlist recommender, you **must** have:
 
 ---
 
-### ✅ Run the Recommender
+### Run the Recommender
 
 Open your terminal and run:
 
