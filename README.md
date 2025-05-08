@@ -270,15 +270,17 @@ When running the program for the first time, you’ll be prompted to grant permi
 ---
 
 # PPO Model Architecture
-State: 5D latent vector from VAE
+State: A 5-D latent vector representing each song, extracted from a Variational Autoencoder (VAE)
 
-Action: Top-4 recommended songs via KNN
+Action: 
+The top-4 recommended songs selected using K-Nearest Neighbors (KNN) based on cosine similarity in latent space. The actor network outputs a probability distribution over these 4 songs.
 
-Reward: Computed from user listening behavior
+Reward: 
+Computed from user feedback as combination of: percentage_listened, liked (binary feedback)
 
 Networks:
 
-Policy network → outputs softmax distribution over top-4 actions
+Policy network (Actor) → outputs softmax distribution over top-4 actions
 ```bash
 Input: 5D latent vector
 
@@ -295,7 +297,7 @@ Total Parameters:                               17,796
 Trainable Params:                               17,796
 
 ```
-Value network → estimates expected return from state
+Value network (Critic) → estimates expected return from state
 ```bash
 Input: 5D latent vector
 
