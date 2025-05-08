@@ -279,9 +279,41 @@ Reward: Computed from user listening behavior
 Networks:
 
 Policy network → outputs softmax distribution over top-4 actions
+```bash
+Input: 5D latent vector
 
+Layer (type)              Output Shape           Param #
+-----------------------------------------------------------
+Linear (fc1)              (128,)                 768       # 5×128 + 128
+ReLU
+Linear (fc2)              (128,)                 16,512    # 128×128 + 128
+ReLU
+Linear (fc3)              (4,)                   516       # 128×4 + 4
+Softmax
+-----------------------------------------------------------
+Total Parameters:                               17,796
+Trainable Params:                               17,796
+
+```
 Value network → estimates expected return from state
+```bash
+Input: 5D latent vector
 
+Layer (type)              Output Shape           Param #
+-----------------------------------------------------------
+Linear (fc1)              (128,)                 768       # 5×128 + 128
+LeakyReLU
+LayerNorm                 (128,)                 256       # 2×128 (weight + bias)
+
+Linear (fc2)              (128,)                 16,512    # 128×128 + 128
+LeakyReLU
+LayerNorm                 (128,)                 256       # 2×128
+
+Linear (fc3)              (1,)                   129       # 128×1 + 1
+-----------------------------------------------------------
+Total Parameters:                               17,921
+Trainable Params:                               17,921
+```
 ---
 ## Dataset
 Source: [Spotify Songs Dataset on Kaggle](https://www.kaggle.com/datasets/rodolfofigueroa/spotify-12m-songs)
