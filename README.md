@@ -303,7 +303,6 @@ Adaptive learning allows evolving with user taste shifts
  - [Spotify](https://developer.spotify.com/documentation/web-api)
  - [OpenAI PPO Resources](https://spinningup.openai.com/en/latest/algorithms/ppo.html)
  - [37 Implementation Details of Proximal Policy Optimization](https://iclr-blog-track.github.io/2022/03/25/ppo-implementation-details/)
- - [OpenAI PPO Resources](https://github.com/matiassingers/awesome-readme)
  - [PPO Implementation](https://www.youtube.com/watch?app=desktop&v=hlv79rcHws0)
  - [Proximal Policy Optimization (PPO) - Explained](https://www.youtube.com/watch?v=TjHH_--7l8g&t=37s)
  - [Deep RL class by huggingface](https://huggingface.co/blog/deep-rl-ppo)
