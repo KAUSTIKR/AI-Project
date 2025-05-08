@@ -106,6 +106,10 @@ The observation function **𝑍** defines the probability of observing **𝑜<su
 We use [PPO for Policy Update](https://spinningup.openai.com/en/latest/algorithms/ppo.html#key-equations)
 
 ---
+
+![Songs in Gridworld Form](AI-Project/Songs_in_Gridworld_form.png)
+
+---
 ## Solution Method
 
 Our solution leverages Deep Reinforcement Learning using Proximal Policy Optimization (PPO), which is an algorithm that trains both a policy network and a value network at the same time, improving them together throughout the learning process.  
