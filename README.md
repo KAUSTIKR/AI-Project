@@ -262,7 +262,6 @@ NOTE: Replace <CLIENT_ID> and <CLIENT_SECRET> with your Spotify API credentials:
 python final_rec_songs.py --client_id=<CLIENT_ID> --client_secret=<CLIENT_SECRET>
 ```
 When running the program for the first time, you’ll be prompted to grant permission for playlist and playback access. Simply click “Agree” on the authorization screen to continue and enjoy your music recommended.
-
 **Interact with the System:**
 - The script will start playing songs.
 - Your interactions (% listened and liked) are recorded in user_song_interactions.json in the current directory.
