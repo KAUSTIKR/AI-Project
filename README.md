@@ -303,7 +303,7 @@ Top 4 recommended songs (actions) with probabilities:
   4. 4lJNen4SMTIJMahALc3DcB — Prob: 0.016
 Selected next song (next state): 72GBvm75IHjawz11FCcDma
 ```
-The probabilities seen are nothing but the policy which are model learnt during traning phase.
+The displayed probabilities represent the policy learned by the model during the training phase.
 
 *Generates Playlists (10 songs)*
 
@@ -320,8 +320,7 @@ Final Playlist
 9. 7GZCNHOruZsbNYIaPud5Lb
 10. 2HOjSDwKRMq2NZ78aGewy2
 ```
-These are playlist when we start with *05S5yY7H0WuiQsEhrtjQj5* similarly program generates different tracks to play as starting state changes.
-This starting state is picked randomly from dataset as you run program. Also all these tracks as placed inside queue of our spotify app.
+The playlist generation begins with a starting track, such as 05S5yY7H0WuiQsEhrtjQj5. Each time the program runs, a different starting track is randomly selected from the dataset, resulting in a unique playlist. All recommended tracks are then added to the Spotify app's playback queue.
 
 *Logging Interactions*
  ```bash
@@ -329,7 +328,7 @@ Logging Interactions
 Logged: 05S5yY7H0WuiQsEhrtjQj5 | 0.3 | liked: 0
 Logged: 72GBvm75IHjawz11FCcDma | 1.0 | liked: 1
 ```
-Logs of each track are stored in json file which can later be used for fine-tuning/update our policies learned.
+Logs for each track are stored in a JSON file and can be used later to fine-tune or update the learned policy.
 
  ---
 ## Acknowledgements
