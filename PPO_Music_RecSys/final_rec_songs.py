@@ -1,6 +1,6 @@
 # This is the final step where the learned parameters of the PPO network are used during the inference phase (real-time recommendation).
-# The program recommends a sequence of 15 songs by following the policy learned during training.
-# It starts with a randomly selected song and continues to select songs based on the policy until the episode (20-song playlist) is complete.
+# The program recommends a sequence of 10 songs by following the policy learned during training.
+# It starts with a randomly selected song and continues to select songs based on the policy until the episode (10-song playlist) is complete.
 # During playback, user interaction logs (percentage listened and liked) are recorded
 # so that it can later be used to fine-tune the model through additional training.
 # This prints details about the current state (current song) and the 4 possible actions,
@@ -251,7 +251,7 @@ def generate_and_play_playlist(start_song_id, length=10):
 if __name__ == "__main__":
     # Start with a random song
     start_song_id = np.random.choice(song_ids)
-    generate_and_play_playlist(start_song_id, length=15)
+    generate_and_play_playlist(start_song_id, length=10)
 
 
 
