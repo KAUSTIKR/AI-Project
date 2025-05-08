@@ -107,7 +107,7 @@ We use [PPO for Policy Update](https://spinningup.openai.com/en/latest/algorithm
 
 ---
 
-![Songs in Gridworld Form](AI-Project/Songs_in_Gridworld_form.png)
+![Songs in Gridworld Form](Songs_in_Gridworld_form.png)
 
 ---
 ## Solution Method
