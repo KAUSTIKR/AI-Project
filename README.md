@@ -292,6 +292,7 @@ This dataset includes 11 audio features along with additional metadata. We apply
 ## Results
 How to look at results 
 1. *Current State(s) --> Actions(Top 4 songs) --> Next State(s')*
+   
 ```bash 
 Current song ID (state): 05S5yY7H0WuiQsEhrtjQj5
 Top 4 recommended songs (actions) with probabilities:
@@ -321,7 +322,7 @@ Final Playlist
 These are playlist when we start with *05S5yY7H0WuiQsEhrtjQj5* similarly program generates different tracks to play as starting state changes.
 This starting state is picked randomly from dataset as you run program. Also all these tracks as placed inside queue of our spotify app.
 
-3.  *Logging Interactions*
+3. *Logging Interactions*
  ```bash
 Logging Interactions
 Logged: 05S5yY7H0WuiQsEhrtjQj5 | 0.3 | liked: 0
