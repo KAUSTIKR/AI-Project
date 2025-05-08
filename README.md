@@ -129,6 +129,9 @@ The system receives a positive reward when a user likes or listens to the song f
 ---
 ## Solution Implementation
 
+### Flowchart
+![Flowchart](Program Flow.png)
+
 ### 1. State Representation
 - Each song is originally represented in an 11-dimensional feature space (e.g., tempo, energy, etc.).
 - To make the model more efficient, we use a Variational Autoencoder (VAE) to reduce this to a 5-dimensional latent space.
