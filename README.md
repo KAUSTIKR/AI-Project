@@ -84,7 +84,7 @@ The observation function **𝑍** defines the probability of observing **𝑜<su
 ## PPO
 We use [PPO for Policy Update](https://spinningup.openai.com/en/latest/algorithms/ppo.html#key-equations)
 
-
+---
 ## Related Solutions
 
 Traditional recommendation methods, such as collaborative filtering, have been widely used to model user-item interactions. But these methods usually treat each recommendation as a single guess, without thinking about the order of what the user listened to before.  
@@ -104,7 +104,7 @@ Similar to the DQN-based method, this approach uses an online environment simula
 3. **Continuous Action Space with DDPG (Deep Deterministic Policy Gradient)**  
 A third approach leverages DDPG, a type of reinforcement learning designed for continuous action spaces. Rather than selecting songs by Id, this method represents each song using continuous features such as tempo, energy, or mood. This allows the system to handle a much larger number of song options while still providing accurate and varied recommendations.  
 *(Qian, Zhao, & Wang, 2019)*
-
+---
 ## Solution Method
 
 Our solution leverages Deep Reinforcement Learning using Proximal Policy Optimization (PPO), which is an algorithm that trains both a policy network and a value network at the same time, improving them together throughout the learning process.  
@@ -120,7 +120,7 @@ The action corresponds to selecting the next song from the available pool.
 
 - **Reward Function**:  
 The system receives a positive reward when a user likes or listens to the song fully, and a negative reward if the user skips it, especially if they skip it immediately.
-
+---
 ## Solution Implementation
 
 ### 1. State Representation
@@ -191,7 +191,6 @@ For each untested song within a cluster, we:
 - Normalized the distances so that the maximum distance within the cluster is scaled to 1.  
 - Applied a decay function based on the normalized distance. Songs closer to the centroid receive rewards similar to the top-4 songs, while those farther away receive proportionally lower rewards. This allows the estimated reward to decrease smoothly with increasing distance.
 
----
 ## Features
 
 - Real-time song playback via Spotify Web API
@@ -210,7 +209,6 @@ Before running the real-time playlist recommender, you **must** have:
 - A **Spotify Premium** account (required for playback control)
 - Your own **Spotify API credentials** (Client ID & Client Secret)
 
----
 
 ### Step-by-Step: Get Spotify Client ID & Secret
 
