@@ -223,18 +223,6 @@ Before running the real-time playlist recommender, you **must** have:
 
 ---
 
-### Run the Recommender
-
-Open your terminal and run:
-
-```bash
-python playit.py --client_id=YOUR_CLIENT_ID --client_secret=YOUR_CLIENT_SECRET
-```
-For eg
-```bash
-python playit.py --client_id=afffFGG7 --client_secret=AxcB5854
-```
-When running the program for the first time, you’ll be prompted to grant permission for playlist and playback access. Simply click “Agree” on the authorization screen to continue and enjoy your music recommended.
 ## Features
 
 - Real-time song playback via Spotify Web API
@@ -249,35 +237,25 @@ When running the program for the first time, you’ll be prompted to grant permi
 Install my-project with npm
 1. **Clone the repository:**
 ```bash
-git clone https://github.com/KAUSTIKR/AI-Project.git
-cd AI-Project/playlist
+git clone https://github.com/KAUSTIKR/AI-Project
+cd AI-Project/PPO_Music_RecSys
 ```
-2. Set up a virtual environment (optional but recommended):
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-3. Install dependencies:
+
+2. **Install dependencies:**
 ```bash
 pip install -r requirements.txt
 ```
-4. Configure Spotify API credentials:
-```bash
-SPOTIPY_CLIENT_ID=your_client_id
-SPOTIPY_CLIENT_SECRET=your_client_secret
-SPOTIPY_REDIRECT_URI=http://localhost:8888/callback
-```
+3. **Run the Recommendation Script:** <br>
+NOTE: Replace <CLIENT_ID> and <CLIENT_SECRET> with your Spotify API credentials:
 
-## Usage/Examples
+```bash
+python final_rec_songs.py --client_id=<CLIENT_ID> --client_secret=<CLIENT_SECRET>
+```
+When running the program for the first time, you’ll be prompted to grant permission for playlist and playback access. Simply click “Agree” on the authorization screen to continue and enjoy your music recommended.
 
-1. Generate playlist and play songs:
-```bash
-python run_recommender.py
-```
-2. Logged Interactions:
-```bash
-user_song_interactions.json
-```
+4. **Interact with the System:**
+- The script will start playing songs.
+- Your interactions (% listened/liked) are recorded in user_song_interactions.json in the current directory.
 
 # PPO Model Architecture
 State: 5D latent vector from VAE
