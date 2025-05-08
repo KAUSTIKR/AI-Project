@@ -229,7 +229,18 @@ Before running the real-time playlist recommender, you **must** have:
    - Click **"View Client Secret"** to copy the secret
 
 ---
+## Spotify API Used
 
+```bash
+user-modify-playback-state
+
+user-read-playback-state
+
+user-library-read
+```
+Ensure these scopes are enabled when authenticating via SpotifyOAuth.
+
+---
 ## Installation
 
 Install my-project with npm
@@ -254,7 +265,7 @@ When running the program for the first time, you’ll be prompted to grant permi
 4. **Interact with the System:**
 - The script will start playing songs.
 - Your interactions (% listened and liked) are recorded in user_song_interactions.json in the current directory.
-
+---
 # PPO Model Architecture
 State: 5D latent vector from VAE
 
@@ -268,22 +279,15 @@ Policy network → outputs softmax distribution over top-4 actions
 
 Value network → estimates expected return from state
 
+---
 ## Dataset
 Source: Spotify audio features and VAE-generated latent vectors
 
 Format: Each song is represented as a 5D vector plus metadata
 
 Interactions: Logged as {track_id, latent_vector, liked, percentage_listened}
-## Spotify API Used
 
-```bash
-user-modify-playback-state
-
-user-read-playback-state
-
-user-library-read
-```
-Ensure these scopes are enabled when authenticating via SpotifyOAuth.
+---
 ## Results
 
 Policy network improves playlist quality over multiple episodes
@@ -291,6 +295,8 @@ Policy network improves playlist quality over multiple episodes
 High-likelihood songs correlate with longer listen durations
 
 Adaptive learning allows evolving with user taste shifts
+
+---
 ## Acknowledgements
 
  - [Spotify](https://developer.spotify.com/documentation/web-api)
@@ -307,5 +313,5 @@ Adaptive learning allows evolving with user taste shifts
 - Nick Qian - Sophie Zhao - Yizhou Wang. (n.d.). *Spotify Reinforcement Learning Recommendation System*. [Link](https://sophieyanzhao.github.io/AC297r_2019_SpotifyRL/2019-12-14-Spotify-Reinforcement-Learning-Recommendation-System/)
 - Tomasi, F., Cauteruccio, J., Kanoria, S., Ciosek, K., Rinaldi, M., & Dai, Z. (2023, October 13). *Automatic Music Playlist Generation via simulation-based reinforcement learning*. [arXiv](https://arxiv.org/abs/2310.09123)
 - Zhao, X., Xia, L., Zhang, L., Ding, Z., Yin, D., & Tang, J. (2018). *Deep reinforcement learning for page-wise recommendations*. [DOI](https://doi.org/10.1145/3240323.3240374)
-
+---
 
