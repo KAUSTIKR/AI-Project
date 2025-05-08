@@ -270,17 +270,15 @@ When running the program for the first time, you’ll be prompted to grant permi
 ---
 
 # PPO Model Architecture
-State: A 5-D latent vector representing each song, extracted from a Variational Autoencoder (VAE)
+**State**: A 5-D latent vector representing each song, extracted from a Variational Autoencoder (VAE)
 
-Action: 
+**Action**: 
 The top-4 recommended songs selected using K-Nearest Neighbors (KNN) based on cosine similarity in latent space. The actor network outputs a probability distribution over these 4 songs.
 
-Reward: 
+**Reward**: 
 Computed from user feedback as combination of: percentage_listened, liked (binary feedback)
 
-Networks:
-
-Policy network (Actor) → outputs softmax distribution over top-4 actions
+**Policy network (Actor)** → outputs softmax distribution over top-4 actions
 ```bash
 Input: 5D latent vector
 
@@ -297,7 +295,7 @@ Total Parameters:                               17,796
 Trainable Params:                               17,796
 
 ```
-Value network (Critic) → estimates expected return from state
+**Value network (Critic)** → estimates expected return from state
 ```bash
 Input: 5D latent vector
 
@@ -326,7 +324,7 @@ This dataset includes 11 audio features along with additional metadata. We apply
 ## Results
 Looking at results:
 
-*Current State(s) --> Actions(Top 4 songs) --> Next State(s')*
+**Current State(s) --> Actions(Top 4 songs) --> Next State(s')**
    
 ```bash 
 Current song ID (state): 05S5yY7H0WuiQsEhrtjQj5
@@ -339,7 +337,7 @@ Selected next song (next state): 72GBvm75IHjawz11FCcDma
 ```
 The displayed probabilities represent the policy learned by the model during the training phase.
 
-*Generates Playlists (10 songs)*
+**Generates Playlists (10 songs)**
 
 ```bash
 Final Playlist
@@ -354,9 +352,9 @@ Final Playlist
 9. 7GZCNHOruZsbNYIaPud5Lb
 10. 2HOjSDwKRMq2NZ78aGewy2
 ```
-The playlist generation begins with a starting track, such as 05S5yY7H0WuiQsEhrtjQj5. Each time the program runs, a different starting track is randomly selected from the dataset, resulting in a unique playlist. All recommended tracks are then added to the Spotify app's playback queue.
+The playlist generation begins with a starting track, such as **05S5yY7H0WuiQsEhrtjQj5**. Each time the program runs, a different starting track is randomly selected from the dataset, resulting in a unique playlist. All recommended tracks are then added to the Spotify app's playback queue.
 
-*Logging Interactions*
+**Logging Interactions**
  ```bash
 Logging Interactions
 Logged: 05S5yY7H0WuiQsEhrtjQj5 | 0.3 | liked: 0
