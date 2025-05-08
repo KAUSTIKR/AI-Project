@@ -192,6 +192,16 @@ For each untested song within a cluster, we:
 - Applied a decay function based on the normalized distance. Songs closer to the centroid receive rewards similar to the top-4 songs, while those farther away receive proportionally lower rewards. This allows the estimated reward to decrease smoothly with increasing distance.
 
 ---
+## Features
+
+- Real-time song playback via Spotify Web API
+- Actor-Critic network trained using PPO for adaptive recommendations
+- Feedback loop based on percentage listened and liked status
+- Top-4 song selection using KNN over latent vectors
+- Logs user interactions to retrain and fine-tune the model
+- Episode-based policy improvement with live policy/value loss tracking
+  
+---
 
 ## Spotify Premium Setup Instructions
 
@@ -221,15 +231,6 @@ Before running the real-time playlist recommender, you **must** have:
    - Click **"View Client Secret"** to copy the secret
 
 ---
-
-## Features
-
-- Real-time song playback via Spotify Web API
-- Actor-Critic network trained using PPO for adaptive recommendations
-- Feedback loop based on percentage listened and liked status
-- Top-4 song selection using KNN over latent vectors
-- Logs user interactions to retrain and fine-tune the model
-- Episode-based policy improvement with live policy/value loss tracking
 
 ## Installation
 
