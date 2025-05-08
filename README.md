@@ -282,7 +282,7 @@ Value network → estimates expected return from state
 
 ---
 ## Dataset
-Source: Spotify audio features and VAE-generated latent vectors
+Source: [Spotify Songs Dataset on Kaggle](https://www.kaggle.com/datasets/USERNAME/DATASET-NAME)
 
 Format: Each song is represented as a 5D vector plus metadata
 
