@@ -285,6 +285,7 @@ Value network → estimates expected return from state
 ---
 ## Dataset
 Source: [Spotify Songs Dataset on Kaggle](https://www.kaggle.com/datasets/rodolfofigueroa/spotify-12m-songs)
+
 This dataset includes 11 audio features along with additional metadata. We apply an autoencoder to compress the feature space from 11 dimensions to 5, resulting in a new dataset named "filtered_artist_data", which is used for subsequent processing.
 
 ---
