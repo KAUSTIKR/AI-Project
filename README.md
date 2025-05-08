@@ -92,7 +92,7 @@ Recent works have introduced reinforcement learning (RL) techniques to address t
 
 1. **Deep Q-Network (DQN) with Simulated Training**  
 One study proposes the use of a Deep Q-Network (DQN) trained in a simulated playlist-generation environment. This approach allows the system to handle the large action space by learning from trial-and-error interactions in a safe, offline setting.  
-*(Tomasi et al., 2023)*
+*(Tomasi et al., 2023)*. But DQN faces limitations when it comes to large action space or state space.
 
 2. **List-wise Recommendations via MDP and Online Simulation**  
 Another work models the recommendation process as a Markov Decision Process (MDP), where:  
