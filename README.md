@@ -269,19 +269,6 @@ Policy network → outputs softmax distribution over top-4 actions
 
 Value network → estimates expected return from state
 
-## Project Structure
-```bash
-playlist/
-├── vae_latent_vectors.csv             # Latent song features
-├── user_song_interactions.json        # Live interaction logs
-├── train_policy.py                    # PPO training script
-├── run_recommender.py                 # Playback + live loop
-├── ppo_model.pt                       # Trained policy network
-├── songs_clusters.py                  # Song clustering logic
-├── preprocessing_ppoInput.py          # Input prep from logs
-├── requirements.txt                   # Python dependencies
-└── README.md
-```
 ## Dataset
 Source: Spotify audio features and VAE-generated latent vectors
 
@@ -308,23 +295,18 @@ Adaptive learning allows evolving with user taste shifts
 ## Acknowledgements
 
  - [Spotify](https://developer.spotify.com/documentation/web-api)
+ - [OpenAI PPO Resources](https://spinningup.openai.com/en/latest/algorithms/ppo.html)
+ - [37 Implementation Details of Proximal Policy Optimization](https://iclr-blog-track.github.io/2022/03/25/ppo-implementation-details/)
  - [OpenAI PPO Resources](https://github.com/matiassingers/awesome-readme)
- - [UC Berkeley Pacman AI Projects for RL structure inspiration](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
- - [OpenAI PPO Resources](https://github.com/matiassingers/awesome-readme)
- - [UC Berkeley Pacman AI Projects for RL structure inspiration](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
- - [OpenAI PPO Resources](https://github.com/matiassingers/awesome-readme)
- - [UC Berkeley Pacman AI Projects for RL structure inspiration](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
+ - [PPO Implementation](https://www.youtube.com/watch?app=desktop&v=hlv79rcHws0)
+ - [Proximal Policy Optimization (PPO) - Explained](https://www.youtube.com/watch?v=TjHH_--7l8g&t=37s)
+ - [Deep RL class by huggingface](https://huggingface.co/blog/deep-rl-ppo)
 
 
 ## References
-
-- Nick Qian - Sophie Zhao - Yizhou Wang. (n.d.). *Spotify Reinforcement Learning Recommendation System*.  
-  [Link](https://sophieyanzhao.github.io/AC297r_2019_SpotifyRL/2019-12-14-Spotify-Reinforcement-Learning-Recommendation-System/)
-
-- Tomasi, F., Cauteruccio, J., Kanoria, S., Ciosek, K., Rinaldi, M., & Dai, Z. (2023, October 13). *Automatic Music Playlist Generation via simulation-based reinforcement learning*.  
-  [arXiv](https://arxiv.org/abs/2310.09123)
-
-- Zhao, X., Xia, L., Zhang, L., Ding, Z., Yin, D., & Tang, J. (2018). *Deep reinforcement learning for page-wise recommendations*.  
-  [DOI](https://doi.org/10.1145/3240323.3240374)
+- Qadeer Khan, Torsten Schön, Patrick Wenzel. *Latent Space Reinforcement Learning for Steering Angle Prediction*. [arXiv](https://arxiv.org/abs/1902.03765)
+- Nick Qian - Sophie Zhao - Yizhou Wang. (n.d.). *Spotify Reinforcement Learning Recommendation System*. [Link](https://sophieyanzhao.github.io/AC297r_2019_SpotifyRL/2019-12-14-Spotify-Reinforcement-Learning-Recommendation-System/)
+- Tomasi, F., Cauteruccio, J., Kanoria, S., Ciosek, K., Rinaldi, M., & Dai, Z. (2023, October 13). *Automatic Music Playlist Generation via simulation-based reinforcement learning*. [arXiv](https://arxiv.org/abs/2310.09123)
+- Zhao, X., Xia, L., Zhang, L., Ding, Z., Yin, D., & Tang, J. (2018). *Deep reinforcement learning for page-wise recommendations*. [DOI](https://doi.org/10.1145/3240323.3240374)
 
 
