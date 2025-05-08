@@ -303,7 +303,7 @@ Selected next song (next state): 72GBvm75IHjawz11FCcDma
 ```
 The probabilities seen are nothing but the policy which are model learnt during traning phase. 
 
-2. *Generates Playlists(15 songs)*
+2. *Generates Playlists (10 songs)*
 
 ```bash
 Final Playlist
@@ -327,7 +327,6 @@ Logging Interactions
 Logged: 05S5yY7H0WuiQsEhrtjQj5 | 0.3 | liked: 0
 Logged: 72GBvm75IHjawz11FCcDma | 1.0 | liked: 1
 ```
-
 Logs of each track are stored in json file which can later be used for fine-tuning/update our policies learned.
 
  ---
