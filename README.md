@@ -131,7 +131,7 @@ The system receives a positive reward when a user likes or listens to the song f
 
 ### Flowchart
 
-![Flowchart](ProgramFlow.png)
+![Program](Program.png)
 
 ### 1. State Representation
 - Each song is originally represented in an 11-dimensional feature space (e.g., tempo, energy, etc.).
