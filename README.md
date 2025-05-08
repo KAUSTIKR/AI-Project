@@ -290,14 +290,50 @@ This dataset includes 11 audio features along with additional metadata. We apply
 
 ---
 ## Results
+How to look at results 
+1. *Current State(s) --> Actions(Top 4 songs) --> Next State(s')*
+'''bash 
+Current song ID (state): 05S5yY7H0WuiQsEhrtjQj5
+Top 4 recommended songs (actions) with probabilities:
+  1. 72GBvm75IHjawz11FCcDma — Prob: 0.728
+  2. 0PG9fbaaHFHfre2gUVo7AN — Prob: 0.239
+  3. 7aBxcRw77817BrkdPChAGY — Prob: 0.017
+  4. 4lJNen4SMTIJMahALc3DcB — Prob: 0.016
+Selected next song (next state): 72GBvm75IHjawz11FCcDma
+'''
+The probabilities seen are nothing but the policy which are model learnt during traning phase. 
 
-Policy network improves playlist quality over multiple episodes
+2. *Generates Playlists(15 songs)*
 
-High-likelihood songs correlate with longer listen durations
+'''bash
+Final Playlist
+1. 05S5yY7H0WuiQsEhrtjQj5
+2. 72GBvm75IHjawz11FCcDma
+3. 6d1B1k4lvWNSu3LFlUw1Gj
+4. 04zTmVio529e6gGh21Tcnb
+5. 0ILEnJtqVXZZ5zyH12YIIc
+6. 1NCSa6QvClPVe7KqsqjnMn
+7. 6axMDyb9uCb30oXvVSlANp
+8. 1L3NV7VrCiuE8C5QlhdeQL
+9. 7GZCNHOruZsbNYIaPud5Lb
+10. 2HOjSDwKRMq2NZ78aGewy2
+11. 5Ut7BkqUeOXXemqonXh6sQ
+12. 4noLzwgD4GzlbLRbSCElVq
+13. 7GZCNHOruZsbNYIaPud5Lb
+14. 1L3NV7VrCiuE8C5QlhdeQL
+15. 6axMDyb9uCb30oXvVSlANp
+'''
+These are playlist when we start with *05S5yY7H0WuiQsEhrtjQj5* similarly program generates different tracks to play as starting state changes.
+This starting state is picked randomly from dataset as you run program. Also all these tracks as placed inside queue of our spotify app.
 
-Adaptive learning allows evolving with user taste shifts
-
----
+3.  *Logging Interactions*
+'''bash
+Logging Interactions
+Logged: 05S5yY7H0WuiQsEhrtjQj5 | 0.3 | liked: 0
+Logged: 72GBvm75IHjawz11FCcDma | 1.0 | liked: 1
+'''
+Logs of each track are stored in json file which can later be used for fine-tuning/update our policies learned.
+ ---
 ## Acknowledgements
 
  - [Spotify](https://developer.spotify.com/documentation/web-api)
