@@ -282,7 +282,7 @@ Value network → estimates expected return from state
 
 ---
 ## Dataset
-Source: [Spotify Songs Dataset on Kaggle](https://www.kaggle.com/datasets/USERNAME/DATASET-NAME)
+Source: [Spotify Songs Dataset on Kaggle](https://www.kaggle.com/datasets/rodolfofigueroa/spotify-12m-songs)
 
 Format: Each song is represented as a 5D vector plus metadata
 
