@@ -104,6 +104,7 @@ Similar to the DQN-based method, this approach uses an online environment simula
 3. **Continuous Action Space with DDPG (Deep Deterministic Policy Gradient)**  
 A third approach leverages DDPG, a type of reinforcement learning designed for continuous action spaces. Rather than selecting songs by Id, this method represents each song using continuous features such as tempo, energy, or mood. This allows the system to handle a much larger number of song options while still providing accurate and varied recommendations.  
 *(Qian, Zhao, & Wang, 2019)*
+
 ## Solution Method
 
 Our solution leverages Deep Reinforcement Learning using Proximal Policy Optimization (PPO), which is an algorithm that trains both a policy network and a value network at the same time, improving them together throughout the learning process.  
