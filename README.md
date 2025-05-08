@@ -1,6 +1,12 @@
 # AI-Project
 Adaptive Spotify Music Recommendation using Reinforcement Learning
 
+## Project Description
+
+This project implements a personalized music recommendation system using the **Proximal Policy Optimization (PPO)** algorithm with an **Actor-Critic architecture**. It recommends songs based on user preferences derived from real-time feedback (percentage listened, likes) and automatically plays them using the Spotify API. Over time, the model adapts to user behavior, improving the quality of future playlists.
+
+In the context of music recommendation systems, the system is faced with millions of songs to choose from. This creates a vast action space, where each song represents a possible recommendation the system could make (state). Additionally, user behavior is highly uncertain. Since musical preferences are personal, dynamic, and often unpredictable, there is no fixed formula to determine whether a user will like or dislike a particular song. Moreover, the system must learn from the user’s listening history to improve future recommendations. This transforms the task from a simple, one-step prediction into a sequential decision-making problem that requires ongoing learning and adaptation. In such an environment, the agent must learn through interaction by recommending songs, observing user feedback, and refining its strategy over time. However, due to the huge size of the action space, it is infeasible to explore or store information about every possible state. To address these challenges, we apply deep reinforcement learning, where neural networks enable the agent to generalize from limited experience and make effective predictions without needing to visit or memorize every individual state or action.
+
 ## State Space Representation
 
 The state space is represented by a latent vector derived from audio features and metadata of individual tracks. These **latent vectors** are learned using a **Variational Autoencoder (VAE)**, which compresses high-dimensional audio feature data into a lower-dimensional embedding space. This latent representation captures the essential characteristics of each song, enabling compact and meaningful state descriptions. The state space **𝑆** thus consists of all such latent vectors corresponding to the available tracks, where each vector serves as a unique, continuous representation of the musical content and style of a track. This formulation allows the reinforcement learning agent to generalize across similar tracks and effectively learn user preferences, even in **cold start (no user history)** scenarios. Since we have a cold-start problem, we cannot use a user-track interaction matrix for state space representation and must instead rely on latent vector generation.
@@ -78,13 +84,6 @@ The observation function **𝑍** defines the probability of observing **𝑜<su
 ## PPO
 We use [PPO for Policy Update](https://spinningup.openai.com/en/latest/algorithms/ppo.html#key-equations)
 
-# Adaptive Spotify Music Recommendation using Reinforcement Learning
-
-## Project Description
-
-This project implements a personalized music recommendation system using the **Proximal Policy Optimization (PPO)** algorithm with an **Actor-Critic architecture**. It recommends songs based on user preferences derived from real-time feedback (percentage listened, likes) and automatically plays them using the Spotify API. Over time, the model adapts to user behavior, improving the quality of future playlists.
-
-In the context of music recommendation systems, the system is faced with millions of songs to choose from. This creates a vast action space, where each song represents a possible recommendation the system could make (state). Additionally, user behavior is highly uncertain. Since musical preferences are personal, dynamic, and often unpredictable, there is no fixed formula to determine whether a user will like or dislike a particular song. Moreover, the system must learn from the user’s listening history to improve future recommendations. This transforms the task from a simple, one-step prediction into a sequential decision-making problem that requires ongoing learning and adaptation. In such an environment, the agent must learn through interaction by recommending songs, observing user feedback, and refining its strategy over time. However, due to the huge size of the action space, it is infeasible to explore or store information about every possible state. To address these challenges, we apply deep reinforcement learning, where neural networks enable the agent to generalize from limited experience and make effective predictions without needing to visit or memorize every individual state or action.
 
 ## Related Solutions
 
