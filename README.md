@@ -254,7 +254,7 @@ When running the program for the first time, you’ll be prompted to grant permi
 
 4. **Interact with the System:**
 - The script will start playing songs.
-- Your interactions (% listened/liked) are recorded in user_song_interactions.json in the current directory.
+- Your interactions (% listened and liked) are recorded in user_song_interactions.json in the current directory.
 
 # PPO Model Architecture
 State: 5D latent vector from VAE
