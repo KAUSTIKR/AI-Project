@@ -106,6 +106,7 @@ The observation function **𝑍** defines the probability of observing **𝑜<su
 We use [PPO for Policy Update](https://spinningup.openai.com/en/latest/algorithms/ppo.html#key-equations)
 
 ---
+## Songs in Gridworld Form
 
 ![Songs in Gridworld Form](Songs_in_Gridworld_form.png)
 
