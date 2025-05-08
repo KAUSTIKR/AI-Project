@@ -7,6 +7,27 @@ This project implements a personalized music recommendation system using the **P
 
 In the context of music recommendation systems, the system is faced with millions of songs to choose from. This creates a vast action space, where each song represents a possible recommendation the system could make (state). Additionally, user behavior is highly uncertain. Since musical preferences are personal, dynamic, and often unpredictable, there is no fixed formula to determine whether a user will like or dislike a particular song. Moreover, the system must learn from the user’s listening history to improve future recommendations. This transforms the task from a simple, one-step prediction into a sequential decision-making problem that requires ongoing learning and adaptation. In such an environment, the agent must learn through interaction by recommending songs, observing user feedback, and refining its strategy over time. However, due to the huge size of the action space, it is infeasible to explore or store information about every possible state. To address these challenges, we apply deep reinforcement learning, where neural networks enable the agent to generalize from limited experience and make effective predictions without needing to visit or memorize every individual state or action.
 
+---
+## Related Solutions
+
+Traditional recommendation methods, such as collaborative filtering, have been widely used to model user-item interactions. But these methods usually treat each recommendation as a single guess, without thinking about the order of what the user listened to before.  
+Recent works have introduced reinforcement learning (RL) techniques to address these limitations:
+
+1. **Deep Q-Network (DQN) with Simulated Training**  
+One study proposes the use of a Deep Q-Network (DQN) trained in a simulated playlist-generation environment. This approach allows the system to handle the large action space by learning from trial-and-error interactions in a safe, offline setting *(Tomasi et al., 2023)*. But DQN faces limitations when it comes to large action space or state space.
+
+2. **List-wise Recommendations via MDP and Online Simulation**  
+Another work models the recommendation process as a Markov Decision Process (MDP), where:  
+- Each moment of interaction is a state,  
+- Recommending something is an action,  
+- And the user’s reaction (e.g: click, skip) is the reward.  
+Similar to the DQN-based method, this approach uses an online environment simulator to pre-train and evaluate the model.  
+*(Zhao et al., 2018)*
+
+3. **Continuous Action Space with DDPG (Deep Deterministic Policy Gradient)**  
+A third approach leverages DDPG, a type of reinforcement learning designed for continuous action spaces. Rather than selecting songs by Id, this method represents each song using continuous features such as tempo, energy, or mood. This allows the system to handle a much larger number of song options while still providing accurate and varied recommendations.  
+*(Qian, Zhao, & Wang, 2019)*
+---
 ## State Space Representation
 
 The state space is represented by a latent vector derived from audio features and metadata of individual tracks. These **latent vectors** are learned using a **Variational Autoencoder (VAE)**, which compresses high-dimensional audio feature data into a lower-dimensional embedding space. This latent representation captures the essential characteristics of each song, enabling compact and meaningful state descriptions. The state space **𝑆** thus consists of all such latent vectors corresponding to the available tracks, where each vector serves as a unique, continuous representation of the musical content and style of a track. This formulation allows the reinforcement learning agent to generalize across similar tracks and effectively learn user preferences, even in **cold start (no user history)** scenarios. Since we have a cold-start problem, we cannot use a user-track interaction matrix for state space representation and must instead rely on latent vector generation.
@@ -84,26 +105,6 @@ The observation function **𝑍** defines the probability of observing **𝑜<su
 ## PPO
 We use [PPO for Policy Update](https://spinningup.openai.com/en/latest/algorithms/ppo.html#key-equations)
 
----
-## Related Solutions
-
-Traditional recommendation methods, such as collaborative filtering, have been widely used to model user-item interactions. But these methods usually treat each recommendation as a single guess, without thinking about the order of what the user listened to before.  
-Recent works have introduced reinforcement learning (RL) techniques to address these limitations:
-
-1. **Deep Q-Network (DQN) with Simulated Training**  
-One study proposes the use of a Deep Q-Network (DQN) trained in a simulated playlist-generation environment. This approach allows the system to handle the large action space by learning from trial-and-error interactions in a safe, offline setting *(Tomasi et al., 2023)*. But DQN faces limitations when it comes to large action space or state space.
-
-2. **List-wise Recommendations via MDP and Online Simulation**  
-Another work models the recommendation process as a Markov Decision Process (MDP), where:  
-- Each moment of interaction is a state,  
-- Recommending something is an action,  
-- And the user’s reaction (e.g: click, skip) is the reward.  
-Similar to the DQN-based method, this approach uses an online environment simulator to pre-train and evaluate the model.  
-*(Zhao et al., 2018)*
-
-3. **Continuous Action Space with DDPG (Deep Deterministic Policy Gradient)**  
-A third approach leverages DDPG, a type of reinforcement learning designed for continuous action spaces. Rather than selecting songs by Id, this method represents each song using continuous features such as tempo, energy, or mood. This allows the system to handle a much larger number of song options while still providing accurate and varied recommendations.  
-*(Qian, Zhao, & Wang, 2019)*
 ---
 ## Solution Method
 
