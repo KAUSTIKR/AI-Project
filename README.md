@@ -45,7 +45,7 @@ The state space is represented by a latent vector derived from audio features an
 We model the problem as a **Partially Observable Markov Decision Process (POMDP)**, where the agent does not have full access to the state of the environment, such as a user's preferences or listening context. Instead, it must make decisions based on partial observations and indirect feedback.
 
 In reinforcement learning, an agent interacts with an environment over a sequence of time steps. At each time step 
-𝑡, the agent selects an action **𝑎<sub>t</sub> ∈ 𝐴** based on its current state **𝑠<sub>t</sub> ∈ 𝑆**, following a policy **𝜋: 𝑆 → 𝐴**. After executing the action, it receives a **reward 𝑟<sub>t</sub> :𝑆 × 𝐴 → 𝑅** and transitions to the **next state 𝑠<sub>t+1</sub>**. The objective is to learn a policy that maximizes the expected cumulative reward.
+𝑡, the agent selects an action **𝑎<sub>t</sub> ∈ 𝐴** based on its current state **𝑠<sub>t</sub> ∈ 𝑆**, following a policy **𝜋: 𝑆 → 𝐴**. After executing the action, it receives a **reward 𝑟<sub>t</sub> :𝑆 × 𝐴 → 𝑅** and transitions to the **next state S<sub>t+1</sub>**. The objective is to learn a policy that maximizes the expected cumulative reward.
 
 To achieve this, we will be using **Proximal Policy Optimization (PPO)** a **policy-gradient algorithm** that enables stable learning in high-dimensional and continuous state spaces.
 
@@ -54,24 +54,21 @@ To achieve this, we will be using **Proximal Policy Optimization (PPO)** a **pol
 
 Each state **𝑠 ∈ 𝑆** is a continuous-valued latent vector derived from the audio features of a song using a trained Variational Autoencoder (VAE): 
 
-**𝑠<sub>t</sub> ∈ 𝑅<sup>d</sup>** , where **𝑠<sub>t</sub>** = VAEencoder(𝑥<sub>t</sub>)
+**S<sub>t</sub> ∈ 𝑅<sup>d</sup>** , where **𝑠<sub>t</sub>** = VAE<sub>encoder</sub> (𝑥<sub>t</sub>)
 
 **x<sub>t</sub> ∈ 𝑅<sup>n</sup>** : vector of audio features for track 𝑡 (e.g., danceability, energy, valence, etc.)
 
-**𝑑 ≪ n** : dimensionality of latent space (4)
+**𝑑 ≪ n** : dimensionality of latent space (5)
 
 ## Action:
 
-Actions 𝑎 ∈ 𝐴 represent the track recommendations made by the agent at each time step. In our approach, actions are encoded in a continuous latent space, where each action corresponds to the latent vector of a candidate track. These vectors are learned via a Variational Autoencoder (VAE) and normalized within a bounded range (0-1). To learn the optimal policy, we use Proximal Policy Optimization (PPO), a policy-gradient method that which can take continuous action spaces as input.
-
-In our formulation, actions represent track recommendations made by the agent at each time step. Each action corresponds to a latent vector in a continuous space:
-**𝑎<sub>t</sub> ∈ 𝐴 ⊆ 𝑅<sup>d</sup>**
+In our formulation, actions **𝑎<sub>t</sub> ∈ 𝐴 ⊆ 𝑅<sup>d</sup>** represent track recommendations made by the agent at each time step. Each action corresponds to the latent vector of a candidate track, embedded in a continuous space. These vectors are derived using a Variational Autoencoder (VAE) and normalized to lie within a bounded range (0–1). To learn the optimal policy, we train a policy network that outputs a probability distribution over the available actions (top 4 songs).
 
 Where: 
 
 **𝑎<sub>t</sub>** is the latent vector of the recommended track at time t,
 
-**𝑑** is the dimensionality of the latent space learned by the VAE (4)
+**𝑑** is the dimensionality of the latent space learned by the VAE (5)
 
 ## Reward:
 
