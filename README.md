@@ -3,7 +3,7 @@ Adaptive Spotify Music Recommendation using Reinforcement Learning
 
 ## Project Description
 
-This project implements a music recommendation system using the **Proximal Policy Optimization (PPO)** algorithm with an **Actor-Critic architecture**. During the inference phase, it recommends songs based on the policy learned during training and plays them automatically on Spotify app by picking song at random. As the user interacts with the environment by listening to songs, real-time feedback (percentage listened and song was liked or not) is captured and stored. This feedback is intended to be used for future training or fine-tuning of the Actor-Critic model to better adapt to the users musical preferences. The feedback-based fine-tuning is not implemented in this version and is left as a direction for future work.
+This project implements a music recommendation system using the **Proximal Policy Optimization (PPO)** algorithm with an **Actor-Critic Architecture**. During the inference phase, it recommends songs based on the policy learned during training and plays them automatically on Spotify app by picking song at random. As the user interacts with the environment by listening to songs, real-time feedback (percentage listened and song was liked or not) is captured and stored. This feedback is intended to be used for future training or fine-tuning of the Actor-Critic model to better adapt to the users musical preferences. The feedback-based fine-tuning is not implemented in this version and is left as a direction for future work.
 
 In the context of music recommendation systems, the platform is faced with the challenge of selecting from millions of available songs. Each song represents a potential action the system can take, resulting in an extremely large action space. Furthermore, user behavior is inherently uncertain musical preferences are deeply personal, dynamic, and often unpredictable. There is no deterministic rule for determining whether a user will enjoy a particular song. As a result, the system must continuously learn from user interactions and listening history to improve future recommendations.
 
@@ -36,10 +36,6 @@ A third approach leverages DDPG, a type of reinforcement learning designed for c
 This work proposes a switching hybrid recommender system that combines Proximal Policy Optimization (PPO) with autoencoder-based content filtering to address scalability and cold-start challenges. PPO’s actor-critic architecture effectively handles large action spaces and reduces policy gradient variance. The proposed method outperforms baseline models on the Movielens datasets across multiple evaluation metrics, demonstrating significant gains in recommendation precision and recall.*(Vaibhav Padhye et al., 2022)*
 
 ---
-
-## State Space Representation
-The state space is represented by a latent vector derived from audio features and metadata of individual tracks. These **latent vectors** are learned using a **Variational Autoencoder (VAE)**, which compresses high-dimensional audio feature data (11-D) into a lower-dimensional embedding space (5-D). This latent representation captures the essential characteristics of each song, enabling compact and meaningful state descriptions. The state space **𝑆** thus consists of all such latent vectors corresponding to the available tracks, where each vector serves as a unique, continuous representation of the musical content(audio feature). Since we have a cold-start problem, we cannot use a user-track interaction matrix for state space representation **[5]** and must instead rely on latent vector generation **[1]**.
-
 ## Problem Formulation
 
 We model the problem as a **Partially Observable Markov Decision Process (POMDP)**, where the agent does not have full access to the state of the environment, such as a user's preferences or listening context. Instead, it must make decisions based on partial observations and indirect feedback.
@@ -51,6 +47,8 @@ To achieve this, we will be using **Proximal Policy Optimization (PPO)** a **pol
 
 # Mathematical Description
 ## States Space:
+
+The state space is represented by a latent vector derived from audio features and metadata of individual tracks. These **latent vectors** are learned using a **Variational Autoencoder (VAE)**, which compresses high-dimensional audio feature data (11-D) into a lower-dimensional embedding space (5-D). This latent representation captures the essential characteristics of each song, enabling compact and meaningful state descriptions. The state space **𝑆** thus consists of all such latent vectors corresponding to the available tracks, where each vector serves as a unique, continuous representation of the musical content(audio feature). Since we have a cold-start problem, we cannot use a user-track interaction matrix for state space representation **[5]** and must instead rely on latent vector generation **[1]**.
 
 Each state **𝑠 ∈ 𝑆** is a continuous-valued latent vector derived from the audio features of a song using a trained Variational Autoencoder (VAE): 
 
@@ -84,11 +82,14 @@ Formally, this is expressed as:
 
 In classical reinforcement learning, a transition tensor can be constructed where each element represents:
 
-**𝑃<sub>𝑠𝑎𝑠′</sub>=𝑃(𝑠<sub>t+1</sub>=𝑠′∣𝑠<sub>t</sub>=𝑠,𝑎<sub>t</sub>=𝑎)**
+<div align="center">
+  <span style="font-size: 15000px;">
+    <strong>𝑃<sub>𝑠𝑎𝑠′</sub> = 𝑃(𝑠<sub>t+1</sub> = 𝑠′ ∣ 𝑠<sub>t</sub> = 𝑠, 𝑎<sub>t</sub> = 𝑎)</strong>
+  </span>
+</div>
 
-These transition probabilities effectively model the environment’s dynamics, allowing an agent to anticipate future states resulting from its actions. Algorithms that rely on such knowledge are known as model-based methods.
-However, in our setting, the state **𝑠<sub>t</sub>** ∈ **𝑅<sup>4</sup>** is a continuous latent vector generated by **VAE**, and the action **𝑎<sub>t</sub>** is also selected in a continuous space. This makes it infeasible to explicitly define or compute transition probabilities for the vast number of possible state action next state combinations.
-As a result, we adopt a model-free reinforcement learning approach, specifically **Proximal Policy Optimization (PPO)**. PPO does not require explicit modeling of the transition probabilities. Instead, it learns the optimal policy directly from sampled experience, updating the agents behavior based on observed and received rewards.
+
+These transition probabilities model the environment’s dynamics and help the agent anticipate future outcomes of its actions. However, in our case, both the state **𝑠<sub>t</sub>** ∈ **𝑅<sup>5</sup>** exist in a continuous latent space learned via a Variational Autoencoder (VAE). Instead of computing explicit transition probabilities, our policy network outputs a probability distribution over the top 4 nearest candidate songs, and the next state is determined by sampling an action from this distribution.
 
 ## Observations:
 
