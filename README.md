@@ -76,34 +76,41 @@ The reward for a given action is calculated as a combination of two components: 
 
 ## Transition Probability:
 
-The transition probability function **𝑇** defines the likelihood of the agent transitioning to the next state **𝑠<sub>t+1</sub>**, given the current state **𝑠<sub>t</sub>** and action **𝑎<sub>t</sub>**. 
+The transition probability function **𝑇** defines the likelihood of the agent transitioning to the next state **S<sub>t+1</sub>**, given the current state **S<sub>t</sub>** and action **𝑎<sub>t</sub>**. 
 Formally, this is expressed as:
-**𝑃(𝑠<sub>t+1</sub>∣𝑠<sub>t</sub>,𝑎<sub>t</sub>)**
+**𝑃(S<sub>t+1</sub>∣S<sub>t</sub>,𝑎<sub>t</sub>)**
 
 In classical reinforcement learning, a transition tensor can be constructed where each element represents:
 
 <div align="center">
   <span style="font-size: 25px;">
-    <strong>𝑃<sub>𝑠𝑎𝑠′</sub> = 𝑃(𝑠<sub>t+1</sub> = 𝑠′ ∣ 𝑠<sub>t</sub> = 𝑠, 𝑎<sub>t</sub> = 𝑎)</strong>
+    <strong>𝑃<sub>𝑠𝑎𝑠′</sub> = 𝑃(S<sub>t+1</sub> = S′ ∣ S<sub>t</sub> = S, 𝑎<sub>t</sub> = 𝑎)</strong>
   </span>
 </div>
 
 
-These transition probabilities model the environment’s dynamics and help the agent anticipate future outcomes of its actions. However, in our case, both the state **𝑠<sub>t</sub>** ∈ **𝑅<sup>5</sup>** exist in a continuous latent space learned via a Variational Autoencoder (VAE). Instead of computing explicit transition probabilities, our policy network outputs a probability distribution over the top 4 nearest candidate songs, and the next state is determined by sampling an action from this distribution.
+These transition probabilities model the environment’s dynamics and help the agent anticipate future outcomes of its actions. However, in our case, both the state **S<sub>t</sub>** ∈ **𝑅<sup>5</sup>** exist in a continuous latent space learned via a Variational Autoencoder (VAE). Instead of computing explicit transition probabilities, our policy network outputs a probability distribution over the top 4 nearest candidate songs, and the next state is determined by sampling an action from this distribution.
 
 ## Observations:
 
 In your case, since user preferences (the true state) are hidden, observations represent implicit or explicit feedback from the user in response to a recommended track.
-The observation function **𝑍** defines the probability of observing **𝑜<sub>t</sub>** given that the system is in state **𝑠<sub>t</sub>** and the agent took action 
+The observation function **𝑍** defines the probability of observing **O<sub>t</sub>** given that the system is in state **S<sub>t</sub>** and the agent took action 
 **𝑎<sub>t</sub>:**
 
-**𝑍(𝑜<sub>t</sub>∣𝑠<sub>t</sub>,𝑎<sub>t</sub>) = 𝑃(𝑜<sub>t</sub>∣𝑠<sub>t</sub>,𝑎<sub>t</sub>)**
+<div align="center">
+  <span style="font-size: 25px;">
+    <strong>𝑍(O<sub>t</sub>∣S<sub>t</sub>,𝑎<sub>t</sub>) = 𝑃(O<sub>t</sub>∣S<sub>t</sub>,𝑎<sub>t</sub>)</strong>
+  </span>
+</div>
+Where:
 
-**𝑠<sub>t</sub>**: latent representation of the currently playing track
+**S<sub>t</sub>**: latent representation of the currently playing track.
 
-**𝑎<sub>t</sub>**: action (i.e., track recommendation)
+**O<sub>t</sub>**: observation (e.g., feedback such as play, skip, like).
 
-**𝑜<sub>t</sub>**: observation (e.g., feedback such as play, skip, like)
+**𝑎<sub>t</sub>**: action (i.e., track recommendation).
+
+
 
 ## PPO
 We use [PPO for Policy Update](https://spinningup.openai.com/en/latest/algorithms/ppo.html#key-equations)
