@@ -32,8 +32,9 @@ Similar to the DQN-based method, this approach uses an online environment simula
 A third approach leverages DDPG, a type of reinforcement learning designed for continuous action spaces. Rather than selecting songs by Id, this method represents each song using continuous features such as tempo, energy, or mood. This allows the system to handle a much larger number of song options while still providing accurate and varied recommendations.  
 *(Qian, Zhao, & Wang, 2019)*
 
-4. **Proximal policy optimization based hybrid recommender systems for large scale recommendations**
+4. **Proximal policy optimization based hybrid recommender systems for large scale recommendations**  
 This work proposes a switching hybrid recommender system that combines Proximal Policy Optimization (PPO) with autoencoder-based content filtering to address scalability and cold-start challenges. PPO’s actor-critic architecture effectively handles large action spaces and reduces policy gradient variance. The proposed method outperforms baseline models on the Movielens datasets across multiple evaluation metrics, demonstrating significant gains in recommendation precision and recall.*(Vaibhav Padhye et al., 2022)*
+
 ---
 
 ## State Space Representation
