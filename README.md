@@ -72,12 +72,9 @@ Where:
 
 ## Reward:
 
-The reward  𝑟 represents the immediate feedback received by the agent as a consequence of executing an action **𝑎<sub>t</sub>** and transitioning from the current state **𝑠<sub>t</sub>** to the next state **𝑠<sub>t+1</sub>**. It may be positive (reward) or zero (penalty), depending on the quality of the action taken in the given context.
+The reward  𝑟 represents the immediate feedback received by the agent as a consequence of executing an action **𝑎<sub>t</sub>** and transitioning from the current state **S<sub>t</sub>** to the next state **S<sub>t+1</sub>**. It may be positive (reward) or zero (penalty), depending on the quality of the action taken in the given context.
 
-The reward is based on implicit user feedback (e.g., play, skip, like):
-
-**𝑟<sub>t</sub> = 𝑅(𝑠<sub>t</sub>,𝑎<sub>t</sub>)** = +1 if user liked or completed track, or 
-                                                   = 0 if user skipped or disliked track
+The reward for a given action is calculated as a combination of two components: the **Interaction Score** (user feedback) and the **Proximity Score** (closeness to centroid of its cluster), which are explained later in this report.
 
 ## Transition Probability:
 
