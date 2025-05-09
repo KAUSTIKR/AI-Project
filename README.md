@@ -257,6 +257,16 @@ Where:
 
 ![Songs in Gridworld Form](Songs_in_Gridworld_form.png)
 
+The above figure show how songs will appear when their high-dimensional latent representations are embedded into a 2D space for visualization. Each point represents a song (state), and transitions between them reflect the learned PPO policy.
+- Each cell (S1 to S30) represents a song embedding in 2D latent space and create state space.
+- At every song (state), the PPO policy chooses from the **top 4 songs** using KNN points which are close to current latent vectors.
+- Arrows shows the action transitions with **probabilities** learned by the policy network.
+- Two trajectories (T1 in `Purple`, T2 in `Green`) illustrates how the agent generates a 10-song playlist (Taking action based on policy learnt).
+- Rewards (`R=...`) are assigned to songs based on user interaction and proximity to cluster centroids.
+- PPO optimizes the policy by reinforcing paths that leads to **higher cumulative rewards**, guided by the advantage function.
+
+A similar process applies to higher-dimensional state spaces, such as the 5D latent representations used in this project, where each state has 4 possible actions. This approach can be extended to even higher-dimensional spaces and larger action sets as needed.
+
 ---
 ## Features
 
