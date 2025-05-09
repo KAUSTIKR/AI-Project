@@ -252,22 +252,6 @@ Where:
 - Collects reward after each selection and updates its policy using PPO.
 - Training hyperparameters : `lr` = 1e-4, `gamma` = 0.95, `clip_epsilon` = 0.1
 
-### B. Real-Time Inferencing Phase
-Once trained, the model is used online as follows:
-
-1. Getting the Current Song's Vector (State)  
-→ The 5D latent representation of the current song.  
-
-2. Using kNN to Filter Action Space  
-→ Find the top 4 nearest songs as potential recommendations.  
-
-3. Running the Value & Policy Network  
-→ Generate values & probabilities over those top 4 candidates.  
-
-4. Choosing the Next Song  
-→ Either pick the most probable one or sample based on the policy.  
-→ If real-time feedback is available (liked/skipped), the system can log new interactions and periodically fine-tune the models (online learning).
-
 ---
 ## Songs in 2-D Gridworld
 
