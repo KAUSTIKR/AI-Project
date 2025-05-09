@@ -83,7 +83,7 @@ Formally, this is expressed as:
 In classical reinforcement learning, a transition tensor can be constructed where each element represents:
 
 <div align="center">
-  <span style="font-size: 15000px;">
+  <span style="font-size: 50px;">
     <strong>𝑃<sub>𝑠𝑎𝑠′</sub> = 𝑃(𝑠<sub>t+1</sub> = 𝑠′ ∣ 𝑠<sub>t</sub> = 𝑠, 𝑎<sub>t</sub> = 𝑎)</strong>
   </span>
 </div>
