@@ -136,7 +136,7 @@ A score computed based on the users interaction with the song and its proximity 
 
 ![Program](Program.png)
 
-### A]. Training Phase
+### A. Training Phase
 
 ### Step 1. Filtering Kaggle Dataset
 - First we filters tracks released between the years 2000 and 2020.
@@ -180,36 +180,77 @@ A score computed based on the users interaction with the song and its proximity 
   - For each cluster, the Euclidean distance from a song to the cluster centroid is calculated.
   - The proximity score is normalized within the cluster: closer songs receive higher scores (closer to 1), while outliers receives lower scores.
 - Final Reward Calculation:
-  - It is a weighted combination of the interaction score and proximity score. Which ensures that both user preference and content relevance influence the training signal.
+  - It is a weighted combination of the `interaction score` and `proximity score`. Which ensures that both user preference and content relevance influence the training signal.
+
 ### Training PPO Model
+### PPO Model Architecture and Training Setup
 
-### 2. Value Network
-- **Input**: The 5D latent vector representing the current song.  
-- **Output**: A single value estimating the expected future reward (i.e., how good the current situation is).  
-- **Training**: The value network is trained to minimize the Mean Squared Error (MSE) between its prediction and the actual return.
+### Policy Network
+- Takes a **5-dimensional latent vector** as input (from VAE).
+- Outputs a **softmax probability distribution** over the top 4 most similar songs (actions), found using **K-Nearest Neighbors (KNN)**.
+- We ensures that no track is repeated within an episode and the last 3 selected songs are excluded to maintain playlist diversity.
+```bash
+Input: 5D latent vector
 
-### 3. Policy Network
-- **Input**: Same 5D latent vector.  
-- **Output**: A probability distribution over the top 4 recommended songs, filtered using k-Nearest Neighbors (kNN).  
-- **Training**: Trained using PPO loss, based on advantage estimates.  
-- The model either samples from or selects the most likely action (i.e., next song) to maximize user satisfaction.
+Layer (type)              Output Shape           Param #
+-----------------------------------------------------------
+Linear (fc1)              (128,)                 768       # 5×128 + 128
+ReLU
+Linear (fc2)              (128,)                 16,512    # 128×128 + 128
+ReLU
+Linear (fc3)              (4,)                   516       # 128×4 + 4
+Softmax
+-----------------------------------------------------------
+Total Parameters:                               17,796
+Trainable Params:                               17,796
 
-### 4. Reward
-It is calculated by:  
-**reward = percentage_listened + λ × liked**  
+```
+### Value Network
+- Also receives the same 5D latent vector as input.
+- Outputs a **single scalar value** estimating the expected cumulative reward from the current state.
+```bash
+Input: 5D latent vector
 
-Where:  
-- **percentage_listened**: how much of the song was played (e.g., 0.7 if 70% was played).  
-- **liked**: a binary signal (1 if the user liked the song, 0 otherwise).  
-- **λ**: a weight that emphasizes the importance of “liking” (e.g., 10 or 100).
+Layer (type)              Output Shape           Param #
+-----------------------------------------------------------
+Linear (fc1)              (128,)                 768       # 5×128 + 128
+LeakyReLU
+LayerNorm                 (128,)                 256       # 2×128 (weight + bias)
 
-### 5. Offline Training
-We use offline reinforcement learning, training both:  
-- A policy network to decide which song to recommend  
-- A value network to estimate how good a state is  
-This is all done using pre-collected logs (records of past user interactions that have already been saved).
+Linear (fc2)              (128,)                 16,512    # 128×128 + 128
+LeakyReLU
+LayerNorm                 (128,)                 256       # 2×128
 
-### 6. Inference Phase
+Linear (fc3)              (1,)                   129       # 128×1 + 1
+-----------------------------------------------------------
+Total Parameters:                               17,921
+Trainable Params:                               17,921
+```
+
+### Advantage Function
+- Measures how favorable an action was compared to the expected value of the state:
+
+
+<div align="center">
+  <span style="font-size: 25px;">
+    <strong>A(S<sub>t</sub>,a<sub>t</sub>) = R<sub>t</sub> - V(S<sub>t</sub>)</strong>
+  </span>
+</div>
+Where: 
+
+**R<sub>t</sub>**: Actual return (or cumulative reward) obtained after taking action **a<sub>t</sub>** in state **S<sub>t</sub>**. It includes the immediate reward and discounted future rewards.
+
+**V(S<sub>t</sub>)**: The estimated value of state **S<sub>t</sub>**, predicted by the Value Network. It reflects the agent’s expected reward from that state before taking any action.
+- PPO uses this to reinforce actions that perform better than expected and suppress those that underperform.
+
+
+### Episode Configuration
+- Each episode generates a **playlist of 10 songs**.
+- The agent starts from a random track and sequentially selects the next 9 tracks using the policy network.
+- Collects reward after each selection and updates its policy using PPO.
+- Training hyperparameters : `lr` = 1e-4, `gamma` = 0.95, `clip_epsilon` = 0.1
+
+### B. Real-Time Inferencing Phase
 Once trained, the model is used online as follows:
 
 1. Getting the Current Song's Vector (State)  
@@ -224,26 +265,6 @@ Once trained, the model is used online as follows:
 4. Choosing the Next Song  
 → Either pick the most probable one or sample based on the policy.  
 → If real-time feedback is available (liked/skipped), the system can log new interactions and periodically fine-tune the models (online learning).
-
-### 7. Reward Propagation with Clustering
-
-#### 1. Clustering the Songs
-We grouped songs into clusters based on how similar they are by using K-Means on their 2D latent vectors.
-
-#### 2. Collecting Real Feedback for a Few Songs in Each Cluster
-From each cluster, we picked around 4 songs.  
-For each of those songs, we record data:  
-- How much of the song was played (percentage_listened, e.g., 0.64)  
-- Whether the user liked it (liked, e.g., 0.9)  
-- And we compute the reward.
-
-#### 3. Estimate Rewards for the Other Songs in the Cluster
-For each untested song within a cluster, we:  
-- Calculated its distance to the cluster centroid using Euclidean distance:  
-  `d = ∥latent_vector − centroid∥`  
-  This distance indicates how similar the song is to the center of the cluster (and by extension, to the top-4 songs used for evaluation).  
-- Normalized the distances so that the maximum distance within the cluster is scaled to 1.  
-- Applied a decay function based on the normalized distance. Songs closer to the centroid receive rewards similar to the top-4 songs, while those farther away receive proportionally lower rewards. This allows the estimated reward to decrease smoothly with increasing distance.
 
 ---
 ## Songs in Gridworld Form
@@ -325,54 +346,7 @@ When running the program for the first time, you’ll be prompted to grant permi
 **Interact with the System:**
 - The script will start playing songs.
 - Your interactions (% listened and liked) are recorded in user_song_interactions.json in the current directory.
-  
----
 
-# PPO Model Architecture
-**State**: A 5-D latent vector representing each song, extracted from a Variational Autoencoder (VAE)
-
-**Action**: 
-The top-4 recommended songs selected using K-Nearest Neighbors (KNN) based on cosine similarity in latent space. The actor network outputs a probability distribution over these 4 songs.
-
-**Reward**: 
-Computed from user feedback as combination of: percentage_listened, liked (binary feedback)
-
-**Policy network (Actor)** → outputs softmax distribution over top-4 actions
-```bash
-Input: 5D latent vector
-
-Layer (type)              Output Shape           Param #
------------------------------------------------------------
-Linear (fc1)              (128,)                 768       # 5×128 + 128
-ReLU
-Linear (fc2)              (128,)                 16,512    # 128×128 + 128
-ReLU
-Linear (fc3)              (4,)                   516       # 128×4 + 4
-Softmax
------------------------------------------------------------
-Total Parameters:                               17,796
-Trainable Params:                               17,796
-
-```
-**Value network (Critic)** → estimates expected return from state
-```bash
-Input: 5D latent vector
-
-Layer (type)              Output Shape           Param #
------------------------------------------------------------
-Linear (fc1)              (128,)                 768       # 5×128 + 128
-LeakyReLU
-LayerNorm                 (128,)                 256       # 2×128 (weight + bias)
-
-Linear (fc2)              (128,)                 16,512    # 128×128 + 128
-LeakyReLU
-LayerNorm                 (128,)                 256       # 2×128
-
-Linear (fc3)              (1,)                   129       # 128×1 + 1
------------------------------------------------------------
-Total Parameters:                               17,921
-Trainable Params:                               17,921
-```
 ---
 ## Dataset
 Source: [Spotify Songs Dataset on Kaggle](https://www.kaggle.com/datasets/rodolfofigueroa/spotify-12m-songs)
