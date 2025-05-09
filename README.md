@@ -97,7 +97,7 @@ In your case, since user preferences (the true state) are hidden, observations r
 The observation function **𝑍** defines the probability of observing **O<sub>t</sub>** given that the system is in state **S<sub>t</sub>** and the agent took action 
 **𝑎<sub>t</sub>:**
 
-<div align="center">
+<div align="center" style="border: 5px solid #333; padding: 20px; display: inline-block; margin: 25px;">
   <span style="font-size: 25px;">
     <strong>𝑍(O<sub>t</sub>∣S<sub>t</sub>,𝑎<sub>t</sub>) = 𝑃(O<sub>t</sub>∣S<sub>t</sub>,𝑎<sub>t</sub>)</strong>
   </span>
