@@ -114,20 +114,21 @@ Where:
 
 ## Solution Method
 
-Our solution leverages Deep Reinforcement Learning using Proximal Policy Optimization (PPO), which is an algorithm that trains both a policy network and a value network at the same time, improving them together throughout the learning process.  
-We adopt an Actor-Critic architecture, where:  
-- The actor represents the policy (i.e., how the system chooses songs),  
-- The critic estimates the value of the current state (i.e., how promising the situation is based on the user's history).  
+Our solution leverages **Deep Reinforcement Learning** using **Proximal Policy Optimization (PPO)**, which is an algorithm that trains both a policy network and a value network at the same time, improving them together throughout the learning process. We adopt an Actor-Critic architecture, where: 
+
+- The actor represents the policy network which gives probability distrubtion over top 4 songs given the state.
+- The critic estimates the value of the current state expected cumulative future reward starting from state **S<sub>t</sub>**. 
 
 - **State Space**:  
-Each state includes the currently playing song along with its features (such as tempo, energy, or genre), all represented as a vector.  
+Each state includes the currently playing song along with its features (such as tempo, energy, or genre), all represented in latent vector form.  
 
 - **Action Space**:  
-The action corresponds to selecting the next song from the available pool.  
+The action corresponds to selecting the next song from the available pool.
 
-- **Reward Function**:  
-The system receives a positive reward when a user likes or listens to the song fully, and a negative reward if the user skips it, especially if they skip it immediately.
+- **Reward**:
+A score computed based on the users interaction with the song and its proximity to the cluster centroid.
 ---
+
 ## Solution Implementation
 
 ### Flowchart
