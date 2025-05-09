@@ -9,7 +9,7 @@ In the context of music recommendation systems, the platform is faced with the c
 
 This shifts the problem from a simple, static prediction task to a sequential decision-making problem that demands ongoing learning and adaptation. The agent must recommend songs, observe user feedback and refine its strategy over time. However, given the vastness of the action space, it is computationally infeasible to explore or store explicit information about every possible state-action pair.
 
-To address these challenges, we adopt a deep reinforcement learning approach using Proximal Policy Optimization (PPO). Here, neural networks enable the agent to learn compact representations of states and policies, allowing it to make informed recommendations based on learned parameters rather than exhaustive search.
+To address these challenges, we adopt a **Deep Reinforcement Learning** approach using Proximal Policy Optimization (PPO). Here, neural networks enable the agent to learn compact representations of states and policies, allowing it to make informed recommendations based on learned parameters rather than exhaustive search.
 
 ---
 ## Related Solutions
