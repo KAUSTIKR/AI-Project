@@ -154,7 +154,7 @@ A score computed based on the users interaction with the song and its proximity 
 - In our recommendation problem we don't have user-song interaction details ahead which leads to a cold start problem.
 - The cold start problem is addressed using content-based filtering, with K-Means clustering applied to group similar tracks based on their features.
 - This provides a meaningful way to identify related songs and offers a strong starting point for recommendations.
-- Loads a 5-D latent vectors of songs represented by VAE-generated latent vectors in Step2.
+- Loads a 5-D latent vectors of songs represented by VAE-generated latent vectors in Step 2.
 - Identifies latent feature columns to use as input for clustering.
 - Applies K-Means clustering to group similar tracks into 20 clusters based on their latent space proximity.
 - For each cluster, calculates the distance of each song to its cluster centroid and stores this information along with the assigned cluster ID for each track in the dataset.
@@ -165,9 +165,9 @@ A score computed based on the users interaction with the song and its proximity 
 - Working:
   - For each cluster, a mean and standard deviation are randomly sampled within reasonable bounds.
   - The `percentage_listened` score is generated using a Gaussian distribution specific to each cluster.
-  - Scores are clipped to fall between **[0,1]**.
-  - Where **0** means user completely skipped the song, **0.5** - user listened the **50%** of song, **1** - user listened the song completely and likewise for other values.
-- A song is considered “liked” if the simulated `percentage_listened` value exceeds **0.6**.
+  - Scores are clipped to fall between [0,1].
+  - Where 0 means user completely skipped the song, 0.5 - user listened the 50% of song, 1 - user listened the song completely and likewise for other values.
+- A song is considered “liked” if the simulated `percentage_listened` value exceeds 0.6.
 - This simulation approximates user preferences and enables offline training of the recommendation model in the absence of real feedback.
 
 ### Step 5. Reward Calculation for each states (songs)
@@ -209,7 +209,7 @@ Trainable Params:                               17,796
 
 ### 2. Value Network
 - Also receives the same 5D latent vector as input.
-- Outputs a **single scalar value** estimating the expected cumulative reward from the current state.
+- Outputs a single scalar value estimating the expected cumulative reward from the current state.
 
 ```bash
 Input: 5D latent vector
@@ -248,7 +248,7 @@ Where:
 
 
 ### 4. Episode Configuration
-- Each episode generates a **playlist of 10 songs**.
+- Each episode generates a playlist of 10 songs.
 - The agent starts from a random track and sequentially selects the next 9 tracks using the policy network.
 - Collects reward after each selection and updates its policy using PPO.
 - Training hyperparameters : `lr` = 1e-4, `gamma` = 0.95, `clip_epsilon` = 0.1
@@ -261,7 +261,7 @@ Where:
 The above figure show how songs will appear when their high-dimensional latent representations are embedded into a 2D space for visualization. Each point represents a song (state), and transitions between them reflect the learned PPO policy.
 - Each cell (S1 to S30) represents a song embedding in 2D latent space and create state space.
 - At every song (state), the PPO policy chooses from the **top 4 songs** using KNN points which are close to current latent vectors.
-- Arrows shows the action transitions with **probabilities** learned by the policy network.
+- Arrows shows the action transitions with probabilities learned by the policy network.
 - Two trajectories (T1 in `Purple`, T2 in `Green`) illustrates how the agent generates a 10-song playlist (Taking action based on policy learnt).
 - Rewards (`R=...`) are assigned to songs based on user interaction and proximity to cluster centroids.
 - PPO optimizes the policy by reinforcing paths that leads to **higher cumulative rewards**, guided by the advantage function.
@@ -291,20 +291,20 @@ Before running the real-time playlist recommender, you **must** have:
 #### Step-by-Step: Get Spotify Client ID & Secret
 
 1. Go to [Spotify Developer Console](https://developer.spotify.com/documentation/web-api)
-2. **Log in** with your **Spotify Premium** account.
-3. Click your **profile icon** (top-right) → Select **Dashboard**.
-4. Click **"Create an App"**
-   - **App Name**: any name (e.g., `Playlist Recommender`)
-   - **App Description**: e.g., `Real-time Spotify playlist generator using PPO`
-   - **Redirect URI**:  
+2. Log in with your Spotify Premium account.
+3. Click your profile icon (top-right) → Select Dashboard.
+4. Click "Create an App"
+   - App Name: any name (e.g., `Playlist Recommender`)
+   - App Description: e.g., `Real-time Spotify playlist generator using PPO`
+   - Redirect URI:  
      ```
      http://127.0.0.1:8888/callback
      ```
-   - Click **Add**, then click **Save** the app.
+   - Click Add, then click Save the app.
 
 5. After saving:
-   - Copy your **Client ID**
-   - Click **"View Client Secret"** to copy the secret
+   - Copy your Client ID
+   - Click "View Client Secret" to copy the secret
 
 #### Spotify API Used
 
