@@ -110,17 +110,8 @@ Where:
 
 **𝑎<sub>t</sub>**: action (i.e., track recommendation).
 
-
-
-## PPO
-We use [PPO for Policy Update](https://spinningup.openai.com/en/latest/algorithms/ppo.html#key-equations)
-
 ---
-## Songs in Gridworld Form
 
-![Songs in Gridworld Form](Songs_in_Gridworld_form.png)
-
----
 ## Solution Method
 
 Our solution leverages Deep Reinforcement Learning using Proximal Policy Optimization (PPO), which is an algorithm that trains both a policy network and a value network at the same time, improving them together throughout the learning process.  
@@ -211,6 +202,12 @@ For each untested song within a cluster, we:
 - Normalized the distances so that the maximum distance within the cluster is scaled to 1.  
 - Applied a decay function based on the normalized distance. Songs closer to the centroid receive rewards similar to the top-4 songs, while those farther away receive proportionally lower rewards. This allows the estimated reward to decrease smoothly with increasing distance.
 
+---
+## Songs in Gridworld Form
+
+![Songs in Gridworld Form](Songs_in_Gridworld_form.png)
+
+---
 ## Features
 
 - Real-time song playback via Spotify Web API
