@@ -284,8 +284,8 @@ Once trained, the model is used online as follows:
 - Episode-based policy improvement with live policy/value loss tracking
   
 ---
-
-## Spotify Premium Setup Instructions
+## Run Steps:
+## Step 1. Spotify Premium Setup Instructions
 
 Before running the real-time playlist recommender, you **must** have:
 
@@ -312,7 +312,7 @@ Before running the real-time playlist recommender, you **must** have:
    - Click **"View Client Secret"** to copy the secret
 
 ---
-## Spotify API Used
+### Spotify API Used
 
 ```bash
 user-modify-playback-state
@@ -324,7 +324,7 @@ user-library-read
 Ensure these scopes are enabled when authenticating via SpotifyOAuth.
 
 ---
-## Installation
+## Step 2. Installation
 
 Install my-project with npm
 1. **Clone the repository:**
