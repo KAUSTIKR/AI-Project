@@ -269,7 +269,7 @@ Once trained, the model is used online as follows:
 → If real-time feedback is available (liked/skipped), the system can log new interactions and periodically fine-tune the models (online learning).
 
 ---
-## Songs in Gridworld Form
+## Songs in 2-D Gridworld
 
 ![Songs in Gridworld Form](Songs_in_Gridworld_form.png)
 
@@ -349,12 +349,7 @@ When running the program for the first time, you’ll be prompted to grant permi
 - Your interactions (% listened and liked) are recorded in user_song_interactions.json in the current directory.
 
 ---
-## Dataset
-Source: [Spotify Songs Dataset on Kaggle](https://www.kaggle.com/datasets/rodolfofigueroa/spotify-12m-songs)
 
-This dataset includes 11 audio features along with additional metadata. We apply an autoencoder to compress the feature space from 11 dimensions to 5, resulting in a new dataset named "filtered_artist_data", which is used for subsequent processing.
-
----
 ## Results
 Looking at results:
 
@@ -396,7 +391,12 @@ Logged: 72GBvm75IHjawz11FCcDma | 1.0 | liked: 1
 ```
 Logs for each track are stored in a JSON file and can be used later to fine-tune or update the learned policy.
 
- ---
+---
+
+## Dataset
+Source: [Spotify Songs Dataset on Kaggle](https://www.kaggle.com/datasets/rodolfofigueroa/spotify-12m-songs)
+
+---
 ## Acknowledgements
 
  - [Spotify](https://developer.spotify.com/documentation/web-api)
