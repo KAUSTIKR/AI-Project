@@ -186,9 +186,10 @@ A score computed based on the users interaction with the song and its proximity 
 ### PPO Model Architecture and Training Setup
 
 ### Policy Network
-- Takes a **5-dimensional latent vector** as input (from VAE).
-- Outputs a **softmax probability distribution** over the top 4 most similar songs (actions), found using **K-Nearest Neighbors (KNN)**.
+- Takes a 5-D latent vector as input (from VAE).
+- Outputs a softmax probability distribution over the top 4 most similar songs (actions), found using K-Nearest Neighbors (KNN).
 - We ensures that no track is repeated within an episode and the last 3 selected songs are excluded to maintain playlist diversity.
+
 ```bash
 Input: 5D latent vector
 
@@ -203,11 +204,12 @@ Softmax
 -----------------------------------------------------------
 Total Parameters:                               17,796
 Trainable Params:                               17,796
-
 ```
+
 ### Value Network
 - Also receives the same 5D latent vector as input.
 - Outputs a **single scalar value** estimating the expected cumulative reward from the current state.
+
 ```bash
 Input: 5D latent vector
 
