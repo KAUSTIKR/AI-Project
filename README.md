@@ -285,7 +285,7 @@ Once trained, the model is used online as follows:
   
 ---
 ## Run Steps:
-## Step 1. Spotify Premium Setup Instructions
+### Step 1. Spotify Premium Setup Instructions
 
 Before running the real-time playlist recommender, you **must** have:
 
@@ -293,7 +293,7 @@ Before running the real-time playlist recommender, you **must** have:
 - Your own **Spotify API credentials** (Client ID & Client Secret)
 
 
-### Step-by-Step: Get Spotify Client ID & Secret
+#### Step-by-Step: Get Spotify Client ID & Secret
 
 1. Go to [Spotify Developer Console](https://developer.spotify.com/documentation/web-api)
 2. **Log in** with your **Spotify Premium** account.
@@ -311,8 +311,7 @@ Before running the real-time playlist recommender, you **must** have:
    - Copy your **Client ID**
    - Click **"View Client Secret"** to copy the secret
 
----
-### Spotify API Used
+#### Spotify API Used
 
 ```bash
 user-modify-playback-state
@@ -321,10 +320,10 @@ user-read-playback-state
 
 user-library-read
 ```
-Ensure these scopes are enabled when authenticating via SpotifyOAuth.
+Ensure these scopes are enabled when authenticating via SpotifyOAuth (**Already added in program**).
 
 ---
-## Step 2. Installation
+### Step 2. Installation
 
 Install my-project with npm
 1. **Clone the repository:**
