@@ -182,10 +182,10 @@ A score computed based on the users interaction with the song and its proximity 
 - Final Reward Calculation:
   - It is a weighted combination of the `interaction score` and `proximity score`. Which ensures that both user preference and content relevance influence the training signal.
 
-### Training PPO Model
+### Step 6. Training PPO Model:
 ### PPO Model Architecture and Training Setup
 
-### Policy Network
+### 1. Policy Network
 - Takes a 5-D latent vector as input (from VAE).
 - Outputs a softmax probability distribution over the top 4 most similar songs (actions), found using K-Nearest Neighbors (KNN).
 - We ensures that no track is repeated within an episode and the last 3 selected songs are excluded to maintain playlist diversity.
@@ -206,7 +206,7 @@ Total Parameters:                               17,796
 Trainable Params:                               17,796
 ```
 
-### Value Network
+### 2. Value Network
 - Also receives the same 5D latent vector as input.
 - Outputs a **single scalar value** estimating the expected cumulative reward from the current state.
 
@@ -229,7 +229,7 @@ Total Parameters:                               17,921
 Trainable Params:                               17,921
 ```
 
-### Advantage Function
+### 3. Advantage Function
 - Measures how favorable an action was compared to the expected value of the state:
 
 
@@ -246,7 +246,7 @@ Where:
 - PPO uses this to reinforce actions that perform better than expected and suppress those that underperform.
 
 
-### Episode Configuration
+### 4. Episode Configuration
 - Each episode generates a **playlist of 10 songs**.
 - The agent starts from a random track and sequentially selects the next 9 tracks using the policy network.
 - Collects reward after each selection and updates its policy using PPO.
