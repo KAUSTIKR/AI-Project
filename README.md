@@ -45,7 +45,8 @@ In reinforcement learning, an agent interacts with an environment over a sequenc
 
 To achieve this, we will be using **Proximal Policy Optimization (PPO)** a **policy-gradient algorithm** that enables stable learning in high-dimensional and continuous state spaces.
 
-# Mathematical Description
+---
+## Mathematical Description
 ## States Space:
 
 The state space is represented by a latent vector derived from audio features and metadata of individual tracks. These **latent vectors** are learned using a **Variational Autoencoder (VAE)**, which compresses high-dimensional audio feature data (11-D) into a lower-dimensional embedding space (5-D). This latent representation captures the essential characteristics of each song, enabling compact and meaningful state descriptions. The state space **𝑆** thus consists of all such latent vectors corresponding to the available tracks, where each vector serves as a unique, continuous representation of the musical content(audio feature). Since we have a cold-start problem, we cannot use a user-track interaction matrix for state space representation **[5]** and must instead rely on latent vector generation **[1]**.
@@ -375,7 +376,7 @@ Final Playlist
 9. 7GZCNHOruZsbNYIaPud5Lb
 10. 2HOjSDwKRMq2NZ78aGewy2
 ```
-The playlist generation begins with a starting track, such as **05S5yY7H0WuiQsEhrtjQj5**. Each time the program runs, a different starting track is randomly selected from the dataset, resulting in a unique playlist. All recommended tracks are then added to the Spotify app's playback queue.
+The playlist generation begins with a starting track, such as `05S5yY7H0WuiQsEhrtjQj5`. Each time the program runs, a different starting track is randomly selected from the dataset, resulting in a unique playlist. All recommended tracks are then added to the Spotify app's playback queue.
 
 **Logging Interactions**
  ```bash
