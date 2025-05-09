@@ -127,6 +127,7 @@ The action corresponds to selecting the next song from the available pool.
 
 - **Reward**:
 A score computed based on the users interaction with the song and its proximity to the cluster centroid.
+
 ---
 
 ## Solution Implementation
@@ -135,11 +136,52 @@ A score computed based on the users interaction with the song and its proximity 
 
 ![Program](Program.png)
 
-### 1. State Representation
+### A]. Training Phase
+
+### Step 1. Filtering Kaggle Dataset
+- First we filters tracks released between the years 2000 and 2020.
+- Retains only songs by a predefined list of popular artists during those decades (e.g., Ed Sheeran, Taylor Swift, Drake).
+- Stores the final filtered dataset (~2000 tracks) in `filtered_artist_data.csv` for downstream analysis.
+
+### Step 2. State Representation
 - Each song is originally represented in an 11-dimensional feature space (e.g., tempo, energy, etc.).
-- To make the model more efficient, we use a Variational Autoencoder (VAE) to reduce this to a 5-dimensional latent space.
+- To make the model more efficient, we use a Variational Autoencoder (VAE) to reduce this to a 5-D latent space.
 - These compressed vectors become our state representations.
 - All feature values are normalized to the range [0, 1].
+
+### Step 3. Clustering Songs
+- In our recommendation problem we don't have user-song interaction details ahead which leads to a cold start problem.
+- The cold start problem is addressed using content-based filtering, with K-Means clustering applied to group similar tracks based on their features.
+- This provides a meaningful way to identify related songs and offers a strong starting point for recommendations.
+- Loads a 5-D latent vectors of songs represented by VAE-generated latent vectors in Step2.
+- Identifies latent feature columns to use as input for clustering.
+- Applies K-Means clustering to group similar tracks into 20 clusters based on their latent space proximity.
+- For each cluster, calculates the distance of each song to its cluster centroid and stores this information along with the assigned cluster ID for each track in the dataset.
+
+### Step 4. Simulating user rating
+- Since actual user-song interaction data is unavailable, we simulate interactions for training purposes.
+- Each song is assigned a synthetic **`percentage_listened`** value and a binary **`liked`** flag (1 = liked, 0 = not liked).
+- Working:
+  - For each cluster, a mean and standard deviation are randomly sampled within reasonable bounds.
+  - The `percentage_listened` score is generated using a Gaussian distribution specific to each cluster.
+  - Scores are clipped to fall between **[0,1]**.
+  - Where **0** means user completely skipped the song, **0.5** - user listened the **50%** of song, **1** - user listened the song completely and likewise for other values.
+- A song is considered “liked” if the simulated `percentage_listened` value exceeds **0.6**.
+- This simulation approximates user preferences and enables offline training of the recommendation model in the absence of real feedback.
+
+### Step 5. Reward Calculation for each states (songs)
+
+- To generate a reward signal for each song to be used during PPO training we take both user interaction and song relevance.
+- Reason for combining two scores:
+  - Simulated user behavior (`percentage_listened` and `liked`) captures engagement, while proximity to cluster centroid measures how representative the song is within its group.
+- Interaction Score is calculated by:
+  - A weighted combination of `percentage_listened` and `liked` flags. This reflects how positively a user responds to a track.
+- Proximity Score is calculated by:
+  - For each cluster, the Euclidean distance from a song to the cluster centroid is calculated.
+  - The proximity score is normalized within the cluster: closer songs receive higher scores (closer to 1), while outliers receives lower scores.
+- Final Reward Calculation:
+  - It is a weighted combination of the interaction score and proximity score. Which ensures that both user preference and content relevance influence the training signal.
+### Training PPO Model
 
 ### 2. Value Network
 - **Input**: The 5D latent vector representing the current song.  
