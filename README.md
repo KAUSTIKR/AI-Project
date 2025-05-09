@@ -31,9 +31,13 @@ Similar to the DQN-based method, this approach uses an online environment simula
 3. **Continuous Action Space with DDPG (Deep Deterministic Policy Gradient)**  
 A third approach leverages DDPG, a type of reinforcement learning designed for continuous action spaces. Rather than selecting songs by Id, this method represents each song using continuous features such as tempo, energy, or mood. This allows the system to handle a much larger number of song options while still providing accurate and varied recommendations.  
 *(Qian, Zhao, & Wang, 2019)*
+
+4. **Proximal policy optimization based hybrid recommender systems for large scale recommendations**
+This work proposes a switching hybrid recommender system that combines Proximal Policy Optimization (PPO) with autoencoder-based content filtering to address scalability and cold-start challenges. PPO’s actor-critic architecture effectively handles large action spaces and reduces policy gradient variance. The proposed method outperforms baseline models on the Movielens datasets across multiple evaluation metrics, demonstrating significant gains in recommendation precision and recall.*(Vaibhav Padhye et al., 2022)*
 ---
+
 ## State Space Representation
-The state space is represented by a latent vector derived from audio features and metadata of individual tracks. These **latent vectors** are learned using a **Variational Autoencoder (VAE)**, which compresses high-dimensional audio feature data into a lower-dimensional embedding space. This latent representation captures the essential characteristics of each song, enabling compact and meaningful state descriptions. The state space **𝑆** thus consists of all such latent vectors corresponding to the available tracks, where each vector serves as a unique, continuous representation of the musical content and style of a track. This formulation allows the reinforcement learning agent to generalize across similar tracks and effectively learn user preferences, even in **cold start (no user history)** scenarios. Since we have a cold-start problem, we cannot use a user-track interaction matrix for state space representation and must instead rely on latent vector generation.
+The state space is represented by a latent vector derived from audio features and metadata of individual tracks. These **latent vectors** are learned using a **Variational Autoencoder (VAE)**, which compresses high-dimensional audio feature data (11-D) into a lower-dimensional embedding space (5-D). This latent representation captures the essential characteristics of each song, enabling compact and meaningful state descriptions. The state space **𝑆** thus consists of all such latent vectors corresponding to the available tracks, where each vector serves as a unique, continuous representation of the musical content(audio feature). Since we have a cold-start problem, we cannot use a user-track interaction matrix for state space representation **[5]** and must instead rely on latent vector generation **[1]**.
 
 ## Problem Formulation
 
@@ -386,10 +390,10 @@ Logs for each track are stored in a JSON file and can be used later to fine-tune
 
 
 ## References
-- Qadeer Khan, Torsten Schön, Patrick Wenzel. *Latent Space Reinforcement Learning for Steering Angle Prediction*. [arXiv](https://arxiv.org/abs/1902.03765)
-- Nick Qian - Sophie Zhao - Yizhou Wang. (n.d.). *Spotify Reinforcement Learning Recommendation System*. [Link](https://sophieyanzhao.github.io/AC297r_2019_SpotifyRL/2019-12-14-Spotify-Reinforcement-Learning-Recommendation-System/)
-- Tomasi, F., Cauteruccio, J., Kanoria, S., Ciosek, K., Rinaldi, M., & Dai, Z. (2023, October 13). *Automatic Music Playlist Generation via simulation-based reinforcement learning*. [arXiv](https://arxiv.org/abs/2310.09123)
-- Zhao, X., Xia, L., Zhang, L., Ding, Z., Yin, D., & Tang, J. (2018). *Deep reinforcement learning for page-wise recommendations*. [DOI](https://doi.org/10.1145/3240323.3240374)
-  
+1. Qadeer Khan, Torsten Schön, Patrick Wenzel. *Latent Space Reinforcement Learning for Steering Angle Prediction*. [arXiv](https://arxiv.org/abs/1902.03765)
+2. Nick Qian - Sophie Zhao - Yizhou Wang. (n.d.). *Spotify Reinforcement Learning Recommendation System*. [Link](https://sophieyanzhao.github.io/AC297r_2019_SpotifyRL/2019-12-14-Spotify-Reinforcement-Learning-Recommendation-System/)
+3. Tomasi, F., Cauteruccio, J., Kanoria, S., Ciosek, K., Rinaldi, M., & Dai, Z. (2023, October 13). *Automatic Music Playlist Generation via simulation-based reinforcement learning*. [arXiv](https://arxiv.org/abs/2310.09123)
+4. Zhao, X., Xia, L., Zhang, L., Ding, Z., Yin, D., & Tang, J. (2018). *Deep reinforcement learning for page-wise recommendations*. [DOI](https://doi.org/10.1145/3240323.3240374)
+5. Vaibhav Padhye, Kailasam Lakshmanan, Amrita Chaturvedi. *Proximal policy optimization based hybrid recommender systems for large scale recommendations*. [DOI](https://doi.org/10.1007/s11042-022-14231-)
 ---
 
